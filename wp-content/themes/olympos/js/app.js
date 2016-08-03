@@ -57,7 +57,24 @@ var postList = Vue.extend({
   }
 });
 
+//singlePost Component
+var singlePost = Vue.extend({
+  template: '#single-post-template',
 
+  data: function() {
+    return {
+      post: ''
+    }
+  },
+
+  route:{
+    data: function(){
+      this.$http.get('/wp-api-vue/wp-json/wp/v2/posts/' + this.$route.params.postID).then(function(response){
+        this.$set('post', response.json());
+      })
+    }
+  }
+});
 
 
 // Router & Routes
@@ -66,6 +83,11 @@ var router = new VueRouter();
 router.map({
   '/': {
     component: postList
+  },
+
+'post/:postID':{
+    name:'post',
+    component: singlePost
   }
 });
 

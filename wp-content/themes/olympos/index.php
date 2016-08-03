@@ -94,6 +94,7 @@
 
     <div class="post-content">
       {{{ post[0].excerpt.rendered }}}
+      <a v-link="{name:'post', params:{postID: post[0].id }}" class="btn-read-more">Read more</a>
     </div> <!-- /.post-content -->
 
     <a @click="getThePost(post[0].next_post)" v-if="post[0].next_post" class="post-nav next">
@@ -108,7 +109,29 @@
 
   </div> <!-- /.single-preview -->
 
-
 </template> <!-- /#post-list-template -->
+
+
+
+
+<!--
+|--------------------------------------------------------------------------
+|                            Single Post Template
+|--------------------------------------------------------------------------
+-->
+
+<template id="single-post-template">
+  <div class="container single-post">
+    <h2 class="title">{{ post.title.rendered }}</h2>
+
+    <div class="image">
+      <img v-bind:src="post.full">
+    </div>
+
+    <div class="post-content">
+      {{{ post.content.rendered }}}
+    </div>
+  </div>
+</template>
 
 <?php get_footer(); ?>
