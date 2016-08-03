@@ -9,7 +9,10 @@ var postList = Vue.extend({
       posts: '',
       categories: '',
       nameFilter: '',
-      categoryFilter: ''
+      categoryFilter: '',
+      showFilter: false,
+      filterBtnOpen: true,
+      filterBtnClose: false
     }
   },
 
@@ -20,6 +23,19 @@ var postList = Vue.extend({
     this.$http.get('/wp-api-vue/wp-json/wp/v2/categories').then(function(response) {
       this.$set('categories', response.json())
     })
+  },
+
+  methods: {
+    openFilter: function() {
+      this.$set('showFilter', true);
+      this.$set('filterBtnOpen', false);
+      this.$set('filterBtnClose', true);
+    },
+    closeFilter: function() {
+      this.$set('showFilter', false);
+      this.$set('filterBtnOpen', true);
+      this.$set('filterBtnClose', false);
+    }
   }
 });
 
