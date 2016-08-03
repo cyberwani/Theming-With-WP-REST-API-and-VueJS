@@ -13,7 +13,8 @@ var postList = Vue.extend({
       showFilter: false,
       filterBtnOpen: true,
       filterBtnClose: false,
-      post: ''
+      post: '',
+      show: false
     }
   },
 
@@ -30,11 +31,17 @@ var postList = Vue.extend({
     getThePost: function(id) {
       var posts = this.posts;
 
+      this.$set('show', true);
+
       function filterPosts(el) {
         return el.id == id;
       }
 
       this.$set('post', posts.filter(filterPosts));
+    },
+
+    closePost: function() {
+      this.$set('show', false);
     },
 
     openFilter: function() {
