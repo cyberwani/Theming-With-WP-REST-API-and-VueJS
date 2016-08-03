@@ -83,15 +83,26 @@
 -->
 
   <div class="single-preview">
+
     <h2>{{ post[0].title.rendered }}</h2>
+
     <div class="image">
-      <img v-bind:src="post[0].featured_image_300x180" alt="" />
-    </div>
+      <img v-bind:src="post[0].full" alt="" />
+    </div> <!-- /.image -->
 
     <div class="post-content">
       {{{ post[0].excerpt.rendered }}}
-    </div>
-  </div>
+    </div> <!-- /.post-content -->
+
+    <a @click="getThePost(post[0].next_post)" v-if="post[0].next_post" class="post-nav next">
+      <span class="icon-right"></span>
+    </a> <!-- /.post-nav next -->
+
+    <a @click="getThePost(post[0].previous_post)" v-if="post[0].previous_post" class="post-nav prev">
+      <span class="icon-left"></span>
+    </a> <!-- /.post-nav prev -->
+
+  </div> <!-- /.single-preview -->
 
 
 </template> <!-- /#post-list-template -->
