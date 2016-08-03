@@ -12,7 +12,8 @@ var postList = Vue.extend({
       categoryFilter: '',
       showFilter: false,
       filterBtnOpen: true,
-      filterBtnClose: false
+      filterBtnClose: false,
+      post: ''
     }
   },
 
@@ -26,6 +27,16 @@ var postList = Vue.extend({
   },
 
   methods: {
+    getThePost: function(id) {
+      var posts = this.posts;
+
+      function filterPosts(el) {
+        return el.id == id;
+      }
+
+      this.$set('post', posts.filter(filterPosts));
+    },
+
     openFilter: function() {
       this.$set('showFilter', true);
       this.$set('filterBtnOpen', false);

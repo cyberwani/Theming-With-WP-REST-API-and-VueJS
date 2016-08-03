@@ -7,12 +7,17 @@
     </div>
   </div>
 
-  <template id="post-list-template">
+<template id="post-list-template">
 
-    <header class="main-header">
-      <img src="<?php bloginfo('template_url'); ?>/images/hero.jpg" class="hero" />
-    </header>
+  <header class="main-header">
+    <img src="<?php bloginfo('template_url'); ?>/images/hero.jpg" class="hero" />
+  </header>
 
+<!--
+|--------------------------------------------------------------------------
+|                           Filters
+|--------------------------------------------------------------------------
+-->
   <div class="filter-bar">
 
     <div class="container">
@@ -32,7 +37,6 @@
           <input type="text" name="" v-model="nameFilter">
         </div> <!-- /.by-name -->
 
-
         <div class="by-category clearfix">
           <h4>Filter by Category</h4>
           <div class="radio-wrap">
@@ -49,19 +53,47 @@
     </div> <!-- /.filter-wrap -->
   </div> <!-- /.filter-bar -->
 
-    <div class="container">
-      <div class="post-list">
-        <article v-for="post in posts | filterBy nameFilter in 'title' | filterBy categoryFilter in 'categories' " class="post">
+<!--
+|--------------------------------------------------------------------------
+|                          Post Loops etc.
+|--------------------------------------------------------------------------
+-->
+
+  <div class="container">
+    <div class="post-list">
+      <article v-for="post in posts | filterBy nameFilter in 'title' | filterBy categoryFilter in 'categories' " class="post">
+        <a @click="getThePost(post.id)">
           <img v-bind:src="post.featured_image_300x180" alt="" />
-          <div class="post-content">
-            {{ post.title.rendered }}
-            <small v-for="category in post.cats">
-              {{ category.name }}
-            </small>
-          </div> <!-- /.post-content -->
-        </article> <!-- /.post in posts -->
-      </div> <!-- /.post-list -->
-    </div>  <!-- /.container -->
-  </template> <!-- /#post-list-template -->
+        </a>
+        <div class="post-content">
+          {{ post.title.rendered }}
+          <small v-for="category in post.cats">
+            {{ category.name }}
+          </small>
+        </div> <!-- /.post-content -->
+      </article> <!-- /.post in posts -->
+    </div> <!-- /.post-list -->
+  </div>  <!-- /.container -->
+
+
+<!--
+|--------------------------------------------------------------------------
+|                           Post Preview
+|--------------------------------------------------------------------------
+-->
+
+  <div class="single-preview">
+    <h2>{{ post[0].title.rendered }}</h2>
+    <div class="image">
+      <img v-bind:src="post[0].featured_image_300x180" alt="" />
+    </div>
+
+    <div class="post-content">
+      {{{ post[0].excerpt.rendered }}}
+    </div>
+  </div>
+
+
+</template> <!-- /#post-list-template -->
 
 <?php get_footer(); ?>
